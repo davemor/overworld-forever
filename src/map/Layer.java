@@ -1,8 +1,5 @@
 package map;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Layer {
     public static final int NO_VALUE = -1;
 

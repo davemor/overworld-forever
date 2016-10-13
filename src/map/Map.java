@@ -8,4 +8,5 @@ import java.util.List;
  */
 public class Map {
     List<Layer> layers = new ArrayList<Layer>();
+    TileSet tileSet = new TileSet();
 }
