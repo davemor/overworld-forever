@@ -7,6 +7,6 @@ import java.util.List;
  * Created by davidmorrison on 04/10/2016.
  */
 public class Map {
-    List<Layer> layers = new ArrayList<Layer>();
-    TileSet tileSet = new TileSet();
+    public List<Layer> layers = new ArrayList<Layer>();
+    public TileSet tileSet = new TileSet();
 }
