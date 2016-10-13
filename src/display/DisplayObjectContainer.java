@@ -1,4 +1,4 @@
-package scene;
+package display;
 
 import processing.core.PApplet;
 
@@ -10,7 +10,7 @@ import java.util.List;
  */
 public abstract class DisplayObjectContainer extends DisplayObject{
 
-    private List<DisplayObject> children = new ArrayList<DisplayObject>();
+    private List<DisplayObject> children = new ArrayList<>();
 
     public void add(DisplayObject child) {
         children.add(child);

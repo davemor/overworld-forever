@@ -1,6 +1,7 @@
 import processing.core.PApplet;
 
 public class ProcLevels extends PApplet {
+
     public void settings() {
         size(1024, 768);
     }

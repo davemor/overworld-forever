@@ -1,4 +1,4 @@
-package scene;
+package display;
 
 import processing.core.PApplet;
 import processing.core.PImage;

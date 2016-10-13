@@ -1,10 +1,9 @@
-package scene;
+package display;
 
 import processing.core.PApplet;
 import processing.core.PImage;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by davidmorrison on 13/10/2016.
