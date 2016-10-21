@@ -1,3 +1,5 @@
+import display.Camera;
+import display.Character;
 import display.DisplayObjectContainer;
 import map.Layer;
 import map.Map;
@@ -5,16 +7,18 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 import java.io.BufferedReader;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ProcLevels extends PApplet {
 
     display.DisplayObjectContainer scene = new DisplayObjectContainer();
+    display.Camera camera;
+    int roomX, roomY;
+    display.Character link;
 
     public void settings() {
-        size(1024, 768);
+        size(256, 192);
     }
 
     public void setup() {
@@ -24,19 +28,44 @@ public class ProcLevels extends PApplet {
         // display.Image linkDown1 = new display.Image(loadImage("link_down1.png"));
         // scene.add(linkDown1);
 
+        camera = new Camera(this);
+
         map.Map zeldaMap = loadZeldaMap();
         List<PImage> zeldaTiles = loadZeldaTiles();
         display.MapDisplayObject mapObj = new display.MapDisplayObject(zeldaMap, zeldaTiles, 16, 16);
         scene.add(mapObj);
+
+        link = loadLink();
+        scene.add(link);
     }
 
     public void draw() {
+        // update
+        if (keyPressed) {
+            switch (key) {
+                case 'w': link.moveUp(); break;
+                case 's': link.moveDown(); break;
+                case 'a': link.moveLeft(); break;
+                case 'd': link.moveRight(); break;
+            }
+        } else {
+            link.stop();
+        }
+
+        // draw
         background(200.0f, 200.0f, 200.0f);
+        camera.setRoom(roomX, roomY);
+        camera.begin();
         scene.render(this);
+        camera.end();
     }
 
     static public void main(String[] args) {
         PApplet.main(ProcLevels.class.getName());
+    }
+
+    public void keyPressed() {
+
     }
 
     private map.Map loadZeldaMap() {
@@ -83,5 +112,14 @@ public class ProcLevels extends PApplet {
         }
         println("Tiles count: " + tiles.length);
         return Arrays.asList(tiles);
+    }
+
+    private display.Character loadLink() {
+        PImage [] up =      { loadImage("link_up1.png"), loadImage("link_up2.png") };
+        PImage [] down =    { loadImage("link_down1.png"), loadImage("link_down2.png") };
+        PImage [] left =    { loadImage("link_left1.png"), loadImage("link_left2.png") };
+        PImage [] right =   { loadImage("link_right1.png"), loadImage("link_right2.png") };
+        display.Character rtn = new Character(up, down, left, right);
+        return rtn;
     }
 }
