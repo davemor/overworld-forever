@@ -5,10 +5,7 @@ import processing.core.PApplet;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by davidmorrison on 13/10/2016.
- */
-public abstract class DisplayObjectContainer extends DisplayObject{
+public class DisplayObjectContainer extends DisplayObject{
 
     private List<DisplayObject> children = new ArrayList<>();
 

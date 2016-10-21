@@ -5,9 +5,6 @@ import processing.core.PImage;
 
 import java.util.List;
 
-/**
- * Created by davidmorrison on 13/10/2016.
- */
 public class MapDisplayObject extends DisplayObjectContainer {
 
     map.Map aMap;

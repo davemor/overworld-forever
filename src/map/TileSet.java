@@ -3,12 +3,11 @@ package map;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by davidmorrison on 13/10/2016.
- */
+// A Tileset maps an index in a map layer to a some metadata.
+// The metadata describes if the tile is walkable and a name
+// that can be used to get the graphic to render it.
 public class TileSet {
     public class Tile {
-        public String name;
         public boolean isWalkable;
     }
     public String name;
