@@ -1,6 +1,7 @@
 import display.Camera;
 import display.Character;
 import display.DisplayObjectContainer;
+import generate.FrequencyTable;
 import map.Layer;
 import map.Map;
 import processing.core.PApplet;
@@ -8,6 +9,7 @@ import processing.core.PImage;
 
 import java.io.BufferedReader;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class ProcLevels extends PApplet {
@@ -16,6 +18,8 @@ public class ProcLevels extends PApplet {
     display.Camera camera;
     int roomX, roomY;
     display.Character link;
+    display.MapDisplayObject mapDisplayObject;
+    map.Map zeldaMap;
 
     public void settings() {
         size(256, 192);
@@ -30,10 +34,15 @@ public class ProcLevels extends PApplet {
 
         camera = new Camera(this);
 
-        map.Map zeldaMap = loadZeldaMap();
+        zeldaMap = loadZeldaMap();
+        HashMap<String, FrequencyTable> ft = FrequencyTable.makeFrequencyTablesForNLengthPredecessors(zeldaMap.layers.get(0), 128);
+        Layer l = FrequencyTable.makeMapFromNLengthPredecessorsTables(ft, 256, 88, 128);
+        map.Map genMap = new map.Map();
+        genMap.layers.add(l);
+
         List<PImage> zeldaTiles = loadZeldaTiles();
-        display.MapDisplayObject mapObj = new display.MapDisplayObject(zeldaMap, zeldaTiles, 16, 16);
-        scene.add(mapObj);
+        mapDisplayObject = new display.MapDisplayObject(genMap, zeldaTiles, 16, 16);
+        scene.add(mapDisplayObject);
 
         link = loadLink();
         scene.add(link);
@@ -41,6 +50,10 @@ public class ProcLevels extends PApplet {
 
     public void draw() {
         // update
+        // what tile is link on
+        int tileX = (int) link.x / 16;
+        int tileY = (int) link.y / 16;
+
         if (keyPressed) {
             switch (key) {
                 case 'w': link.moveUp(); break;
@@ -51,6 +64,10 @@ public class ProcLevels extends PApplet {
         } else {
             link.stop();
         }
+
+        // work out what room link is in and set the current room to that.
+        roomX = (int) link.x / 256;
+        roomY = (int) link.y / 192; // TODO: Magic Numbers are bad!
 
         // draw
         background(200.0f, 200.0f, 200.0f);
@@ -65,7 +82,28 @@ public class ProcLevels extends PApplet {
     }
 
     public void keyPressed() {
+        switch (key) {
+            case '1':
+                generateSimple();
+                break;
+            case '2':
+                generateNGram(128);
+                break;
+        }
+    }
 
+    private void generateSimple() {
+        FrequencyTable ft = FrequencyTable.countTileFrequencies(zeldaMap.layers.get(0));
+        Layer l = FrequencyTable.makeLayerFromFrequencyTable(ft, 256, 88);
+        mapDisplayObject.aMap.layers.clear();
+        mapDisplayObject.aMap.layers.add(l);
+    }
+
+    private void generateNGram(int len) {
+        HashMap<String, FrequencyTable> ft = FrequencyTable.makeFrequencyTablesForNLengthPredecessors(zeldaMap.layers.get(0), len);
+        Layer l = FrequencyTable.makeMapFromNLengthPredecessorsTables(ft, 256, 88, len);
+        mapDisplayObject.aMap.layers.clear();
+        mapDisplayObject.aMap.layers.add(l);
     }
 
     private map.Map loadZeldaMap() {

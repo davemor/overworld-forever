@@ -25,7 +25,7 @@ public class Character extends DisplayObject {
         this.facing = up;
     }
 
-    float SPEED = 0.4f;
+    float SPEED = 0.8f;
 
     public void moveUp() {
         this.y -= SPEED;
@@ -58,7 +58,7 @@ public class Character extends DisplayObject {
     @Override
     public void render(PApplet app) {
         if (isAnimating) {
-            frame += 0.06;
+            frame += 0.1;
             frame %= 2;
         }
 
