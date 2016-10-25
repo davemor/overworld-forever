@@ -4,6 +4,8 @@ import processing.core.PApplet;
 
 public class Camera {
 
+    public static final float SCALE = 3.0f;
+
     static final int ROOM_WIDTH_IN_TILES = 16;
     static final int ROOM_HEIGHT_IN_TILES = 12;
     static final int TILE_WIDTH = 16;
@@ -17,6 +19,7 @@ public class Camera {
     }
 
     public void begin() {
+        app.scale(SCALE);
         app.pushMatrix();
         app.translate(-x, -y);
     }

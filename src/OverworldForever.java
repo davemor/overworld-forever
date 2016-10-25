@@ -22,7 +22,7 @@ public class OverworldForever extends PApplet {
     map.Map zeldaMap;
 
     public void settings() {
-        size(256, 192);
+        size((int)(256 * Camera.SCALE), (int)(192 * Camera.SCALE));
     }
 
     public void setup() {
