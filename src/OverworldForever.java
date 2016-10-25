@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class ProcLevels extends PApplet {
+public class OverworldForever extends PApplet {
 
     display.DisplayObjectContainer scene = new DisplayObjectContainer();
     display.Camera camera;
@@ -27,10 +27,6 @@ public class ProcLevels extends PApplet {
 
     public void setup() {
         background(1.0f, 1.0f, 1.0f);
-
-        // load an image
-        // display.Image linkDown1 = new display.Image(loadImage("link_down1.png"));
-        // scene.add(linkDown1);
 
         camera = new Camera(this);
 
@@ -78,7 +74,7 @@ public class ProcLevels extends PApplet {
     }
 
     static public void main(String[] args) {
-        PApplet.main(ProcLevels.class.getName());
+        PApplet.main(OverworldForever.class.getName());
     }
 
     public void keyPressed() {
